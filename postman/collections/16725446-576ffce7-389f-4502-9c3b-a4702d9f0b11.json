@@ -595,6 +595,18 @@
 											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
 										}
 									]
+								},
+								{
+									"name": "Fancy new request",
+									"id": "16725446-d92f2ae0-bf9e-4003-8aad-12dc03d97ba7",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
 								}
 							],
 							"id": "16725446-f8f4f974-c5ca-479b-8274-18e9f83f0beb"
