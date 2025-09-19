@@ -16,3 +16,7 @@ jobs:
         run: |
           postman collection run "16725446-576ffce7-389f-4502-9c3b-a4702d9f0b11" -e "16725446-3b6e3068-dd55-4189-8e64-71ed0ec89ba2"
           postman monitor run 1f094e2e-d954-4d70-9c24-3590b532e2ab
+      - name: Lint Spec
+        run: |
+          postman spec lint 5b000ce0-a033-40ed-b29e-9f95d6ad0be1
+    
