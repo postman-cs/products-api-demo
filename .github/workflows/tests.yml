@@ -18,5 +18,5 @@ jobs:
           postman monitor run 1f094e2e-d954-4d70-9c24-3590b532e2ab
       - name: Lint Spec
         run: |
-          postman spec lint 5b000ce0-a033-40ed-b29e-9f95d6ad0be1
+          postman spec lint 957f0b7f-2ffa-4da6-8cf9-cc9a67951ce0
     
