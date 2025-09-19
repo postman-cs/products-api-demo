@@ -41,7 +41,6 @@
 											],
 											"variable": [
 												{
-													"id": "760b7a58-6642-4147-af5e-6c6d5341dddc",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -230,7 +229,6 @@
 											],
 											"variable": [
 												{
-													"id": "60fa89e7-450d-432a-926a-22f1471096cd",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -456,7 +454,6 @@
 											],
 											"variable": [
 												{
-													"id": "8372376a-5d0b-4121-975c-459354a42019",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -604,7 +601,10 @@
 									},
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": ""
+										}
 									},
 									"response": []
 								}
@@ -1000,6 +1000,18 @@
 									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
 								}
 							]
+						},
+						{
+							"name": "cool new endpoint",
+							"id": "16725446-7c97dd79-b84b-4427-8589-34663b8086d5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					],
 					"id": "16725446-51de39ea-3274-4948-a7db-153803036dd3"
@@ -1036,7 +1048,6 @@
 											],
 											"variable": [
 												{
-													"id": "902ffc9a-236b-40b3-8cda-b6f359c1453a",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
@@ -1225,7 +1236,6 @@
 											],
 											"variable": [
 												{
-													"id": "83f9c60a-364c-4f50-a852-88e310fc6d7d",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
@@ -1451,7 +1461,6 @@
 											],
 											"variable": [
 												{
-													"id": "b449e5cd-5a2e-4174-ae3e-9aa78143d61a",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
