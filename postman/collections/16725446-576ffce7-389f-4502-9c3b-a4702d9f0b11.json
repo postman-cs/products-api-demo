@@ -603,7 +603,14 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": ""
+											"raw": "{{baseUrl}}/api/products",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products"
+											]
 										}
 									},
 									"response": []
