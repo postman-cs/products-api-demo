@@ -592,28 +592,6 @@
 											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
 										}
 									]
-								},
-								{
-									"name": "Fancy new request",
-									"id": "16725446-d92f2ae0-bf9e-4003-8aad-12dc03d97ba7",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/api/products",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"products"
-											]
-										}
-									},
-									"response": []
 								}
 							],
 							"id": "16725446-f8f4f974-c5ca-479b-8274-18e9f83f0beb"
@@ -1007,28 +985,6 @@
 									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
 								}
 							]
-						},
-						{
-							"name": "cool new endpoint",
-							"id": "16725446-7c97dd79-b84b-4427-8589-34663b8086d5",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/products",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"products"
-									]
-								}
-							},
-							"response": []
 						}
 					],
 					"id": "16725446-51de39ea-3274-4948-a7db-153803036dd3"
