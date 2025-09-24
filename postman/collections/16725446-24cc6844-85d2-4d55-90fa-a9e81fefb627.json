@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "16725446-24cc6844-85d2-4d55-90fa-a9e81fefb627",
 		"name": "Products (Tuesday Demo)",
-		"description": "Contact Support:\n Email: jordan@example.com",
+		"description": "Products & orders API - Development\n\nContact Support:\n Email: carson@example.com",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -41,6 +41,7 @@
 											],
 											"variable": [
 												{
+													"id": "c7b7a2f9-a33c-49d6-ae29-0abdf6ef0c61",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -229,6 +230,7 @@
 											],
 											"variable": [
 												{
+													"id": "b9526f90-d824-468d-bdec-a1c5cee48104",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -454,6 +456,7 @@
 											],
 											"variable": [
 												{
+													"id": "e3fb26a4-2115-40eb-b06c-f6d1aa6dcc7b",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -941,6 +944,7 @@
 											],
 											"variable": [
 												{
+													"id": "b6ea56f8-8018-45fa-aeef-f26eb68197c6",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
@@ -993,7 +997,7 @@
 											],
 											"cookie": [],
 											"responseTime": null,
-											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 666.1440547577203\n}"
+											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 386.04893136054085\n}"
 										},
 										{
 											"id": "16725446-9b61dcdf-3386-49a9-959e-957d63f261d0",
@@ -1109,7 +1113,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1129,6 +1133,7 @@
 											],
 											"variable": [
 												{
+													"id": "cdeda34f-6609-43c8-90b7-31c20b6ad4e5",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
@@ -1159,7 +1164,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1204,7 +1209,7 @@
 											],
 											"cookie": [],
 											"responseTime": null,
-											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 666.1440547577203\n}"
+											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 386.04893136054085\n}"
 										},
 										{
 											"id": "16725446-c7e63410-7ed2-43aa-ba0e-5ae52bba3d87",
@@ -1228,7 +1233,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1288,7 +1293,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -1354,6 +1359,7 @@
 											],
 											"variable": [
 												{
+													"id": "a9c45944-e699-41bc-b3f6-eb30e4a8f4d1",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
@@ -1560,7 +1566,7 @@
 									],
 									"cookie": [],
 									"responseTime": null,
-									"body": "[\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"status\": \"OPEN\",\n    \"date\": \"2022-03-12T23:20:50.52Z\",\n    \"productIds\": [\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n    ],\n    \"cost\": 948.32,\n    \"tax\": 94.83,\n    \"taxRate\": 10,\n    \"total\": 27.708379466005795\n  },\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"status\": \"OPEN\",\n    \"date\": \"2022-03-12T23:20:50.52Z\",\n    \"productIds\": [\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n    ],\n    \"cost\": 948.32,\n    \"tax\": 94.83,\n    \"taxRate\": 10,\n    \"total\": 519.9411735086719\n  }\n]"
+									"body": "[\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"status\": \"OPEN\",\n    \"date\": \"2022-03-12T23:20:50.52Z\",\n    \"productIds\": [\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n    ],\n    \"cost\": 948.32,\n    \"tax\": 94.83,\n    \"taxRate\": 10,\n    \"total\": 413.14532570785633\n  },\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"status\": \"OPEN\",\n    \"date\": \"2022-03-12T23:20:50.52Z\",\n    \"productIds\": [\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n    ],\n    \"cost\": 948.32,\n    \"tax\": 94.83,\n    \"taxRate\": 10,\n    \"total\": 878.0024250129233\n  }\n]"
 								},
 								{
 									"id": "16725446-4af577ac-8187-4d0b-af23-943de0001b4d",
@@ -1664,7 +1670,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+									"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -1706,7 +1712,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1745,7 +1751,7 @@
 									],
 									"cookie": [],
 									"responseTime": null,
-									"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 666.1440547577203\n}"
+									"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 386.04893136054085\n}"
 								},
 								{
 									"id": "16725446-28954b5d-9d09-4c3d-8bd3-a7e4291dde5f",
@@ -1769,7 +1775,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1823,7 +1829,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 809.8599313081678\n}",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 282.43392932085885\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1913,7 +1919,8 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:3000"
+			"value": "http://localhost:3000",
+			"type": "any"
 		}
 	]
 }
