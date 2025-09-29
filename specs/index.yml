@@ -18,6 +18,7 @@ info:
   contact:
     email: joe@example.com
     url: https://www.example.com
+
 servers:
   - url: 'http://localhost:3000'
     description: Local Development Server
@@ -29,6 +30,7 @@ tags:
     description: Manage the product catalog (create, list, view, update, delete).
   - name: Orders
     description: Work with orders (create, list, view, update, delete).
+
 paths:
   /api/products:
     get:
@@ -90,41 +92,41 @@ paths:
                   cost: 445
                   imageUrl: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
       responses:
-        '201':
-          description: 'Product was created successfully'
-          headers:
-            Location:
-              schema:
-                type: string
-              description: The URL of the new product that was just created.
-            Content-Type:
-              schema:
-                type: string
-              example: application/json
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ViewProduct'
-              examples:
-                created:
-                  summary: Created product response
-                  value:
-                    id: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
-                    name: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
-                    description: "11 levels of noise cancelling. 20 hours of battery life."
-                    model: "794297-0100"
-                    sku: "394807"
-                    cost: 445
-                    imageUrl: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
-          links:
-            GetProductById:
-              operationId: getProductById
-              parameters:
-                productId: '$response.body#/id'
-          x-postman-variables:
-            - type: save
-              name: productId
-              path: .id
+        # '201':
+        #   description: 'Product was created successfully'
+        #   headers:
+        #     Location:
+        #       schema:
+        #         $ref: '#/components/schemas/Url'
+        #       description: The URL of the new product that was just created.
+        #     Content-Type:
+        #       schema:
+        #         $ref: '#/components/schemas/MediaTypeString'
+        #       example: application/json
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/ViewProduct'
+        #       examples:
+        #         created:
+        #           summary: Created product response
+        #           value:
+        #             id: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+        #             name: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
+        #             description: "11 levels of noise cancelling. 20 hours of battery life."
+        #             model: "794297-0100"
+        #             sku: "394807"
+        #             cost: 445
+        #             imageUrl: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
+        #   links:
+        #     GetProductById:
+        #       operationId: getProductById
+        #       parameters:
+        #         productId: '$response.body#/id'
+        #   x-postman-variables:
+        #     - type: save
+        #       name: productId
+        #       path: .id
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
@@ -133,12 +135,13 @@ paths:
           $ref: '#/components/responses/ConflictError'
         '500':
           $ref: '#/components/responses/ServerError'
+
   /api/products/{productId}:
     parameters:
       - in: path
         name: productId
         schema:
-          type: string
+          $ref: '#/components/schemas/ProductId'
         required: true
         description: Product ID to retrieve
         x-postman-variables:
@@ -182,7 +185,7 @@ paths:
           headers:
             Location:
               schema:
-                type: string
+                $ref: '#/components/schemas/Url'
               description: The URL of the product that was just updated.
           content:
             application/json:
@@ -213,6 +216,7 @@ paths:
           $ref: '#/components/responses/NotFoundError'
         '500':
           $ref: '#/components/responses/ServerError'
+
   /api/orders:
     get:
       summary: 'List orders'
@@ -280,7 +284,7 @@ paths:
           headers:
             Location:
               schema:
-                type: string
+                $ref: '#/components/schemas/Url'
               description: The URL of the new order that was just created.
           content:
             application/json:
@@ -303,12 +307,13 @@ paths:
           $ref: '#/components/responses/ConflictError'
         '500':
           $ref: '#/components/responses/ServerError'
+
   /api/orders/{orderId}:
     parameters:
       - in: path
         name: orderId
         schema:
-          type: string
+          $ref: '#/components/schemas/OrderId'
         required: true
         description: Order ID to retrieve
         x-postman-variables:
@@ -352,7 +357,7 @@ paths:
           headers:
             Location:
               schema:
-                type: string
+                $ref: '#/components/schemas/Url'
               description: The URL of the order that was just updated.
           content:
             application/json:
@@ -383,6 +388,7 @@ paths:
           $ref: '#/components/responses/NotFoundError'
         '500':
           $ref: '#/components/responses/ServerError'
+
 components:
   responses:
     BadRequestError:
@@ -440,270 +446,235 @@ components:
               value:
                 status: "500"
                 message: "Internal server error"
+
   schemas:
+    # ---------- Common primitives ----------
+    Url:
+      type: string
+      format: uri
+      description: Absolute URL.
+      example: "https://api.example.com/resource/123"
+    MediaTypeString:
+      type: string
+      description: HTTP media type string.
+      example: application/json
+
+    # ---------- Reusable primitives (Product) ----------
+    ProductId:
+      type: string
+      format: uuid
+      description: The ID of the Product
+      example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+    ProductName:
+      type: string
+      description: The name of the Product
+      minLength: 5
+      maxLength: 1000
+      example: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
+    ProductDescription:
+      type: string
+      description: The description of the Product
+      minLength: 5
+      maxLength: 1000
+      example: "11 levels of noise cancelling. 20 hours of battery life."
+    ProductModel:
+      type: string
+      description: The model number of the Product
+      minLength: 1
+      maxLength: 99
+      example: "794297-0100"
+    ProductSku:
+      type: string
+      description: The SKU of the Product
+      minLength: 1
+      maxLength: 1000
+      example: "394807"
+    ProductSkuNew:
+      type: string
+      description: The SKU of the Product
+      minLength: 1
+      maxLength: 99
+      example: "394807"
+    ProductCost:
+      type: number
+      format: float
+      description: The cost of the Product
+      minimum: 0
+      maximum: 1000
+      example: 445
+    ProductImageUrl:
+      type: string
+      format: uri
+      description: The URL to the image of the Product
+      minLength: 1
+      maxLength: 1000
+      example: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
+
+    # ---------- Reusable primitives (Order) ----------
+    OrderId:
+      type: string
+      format: uuid
+      description: The ID of the Order
+      example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+    OrderStatus:
+      type: string
+      description: The status of the Order
+      enum: [OPEN, PAID, SHIPPED, RECEIVED]
+      example: "OPEN"
+    OrderDate:
+      type: string
+      format: date-time
+      description: The date of the Order
+      example: "2022-03-12T23:20:50.52Z"
+    ProductIdLoose:
+      type: string
+      description: The product ID (not strictly UUID for create flow)
+      minLength: 1
+      maxLength: 1000
+      example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+    ProductIdArray:
+      type: array
+      description: List of Product IDs
+      items:
+        $ref: '#/components/schemas/ProductId'
+    ProductIdArrayNew:
+      type: array
+      description: List of Product IDs for creation
+      items:
+        $ref: '#/components/schemas/ProductIdLoose'
+    Money0to1000:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 1000
+      example: 999.99
+    Money0to99:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 99
+      example: 94.83
+    TaxRatePercent:
+      type: number
+      format: float
+      description: The percentage at which sales tax is calculated
+      minimum: 1
+      maximum: 99
+      example: 10
+
+    # ---------- Collections ----------
     ProductsList:
       type: array
       items:
         $ref: '#/components/schemas/ViewProduct'
-    ViewProduct:
-      type: object
-      required:
-        - id
-        - name
-        - description
-        - model
-        - sku
-        - cost
-        - imageUrl
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: 'The ID of the Product'
-          example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
-        name:
-          type: string
-          description: 'The name of the Product'
-          minLength: 5
-          maxLength: 1000
-          example: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
-        description:
-          type: string
-          description: 'The description of the Product'
-          minLength: 5
-          maxLength: 1000
-          example: "11 levels of noise cancelling. 20 hours of battery life."
-        model:
-          type: string
-          description: 'The model number of the Product'
-          minLength: 1
-          maxLength: 99
-          example: "794297-0100"
-        sku:
-          type: string
-          description: 'The SKU of the Product'
-          minLength: 1
-          maxLength: 1000
-          example: "394807"
-        cost:
-          description: 'The cost of the Product'
-          type: number
-          minimum: 0
-          maximum: 1000
-          format: float
-          example: 445
-        imageUrl:
-          type: string
-          description: 'The URL to the image of the Product'
-          minLength: 1
-          maxLength: 1000
-          format: uri
-          example: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
-    NewProduct:
-      type: object
-      required:
-        - name
-        - description
-        - model
-        - sku
-        - cost
-        - imageUrl
-      properties:
-        name:
-          type: string
-          description: 'The name of the Product'
-          minLength: 1
-          maxLength: 1000
-          example: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
-        description:
-          type: string
-          description: 'The description of the Product'
-          minLength: 1
-          maxLength: 1000
-          example: "11 levels of noise cancelling. 20 hours of battery life."
-        model:
-          type: string
-          minLength: 1
-          maxLength: 99
-          description: 'The model number of the Product'
-          example: "794297-0100"
-        sku:
-          type: string
-          description: 'The SKU of the Product'
-          minLength: 1
-          maxLength: 99
-          example: "394807"
-        cost:
-          description: 'The cost of the Product'
-          type: number
-          minimum: 0
-          maximum: 1000
-          format: float
-          example: 445
-        imageUrl:
-          description: 'The image URL of the Product'
-          type: string
-          minLength: 1
-          maxLength: 1000
-          format: uri
-          example: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
     OrdersList:
       type: array
       items:
         $ref: '#/components/schemas/ViewOrder'
-    ViewOrder:
+
+    # ---------- Aggregate models (all properties via $ref) ----------
+    ViewProduct:
       type: object
-      required:
-        - id
-        - status
-        - date
-        - productIds
-        - cost
-        - tax
-        - taxRate
-        - total
+      required: [id, name, description, model, sku, cost, imageUrl]
       properties:
         id:
-          type: string
-          description: 'The ID of the Order'
-          format: uuid
-          example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
-        status:
-          type: string
-          description: 'The status of the Order'
-          minLength: 1
-          maxLength: 1000
-          enum:
-            - OPEN
-            - PAID
-            - SHIPPED
-            - RECEIVED
-          example: "OPEN"
-        date:
-          type: string
-          description: 'The date of the Order'
-          format: date-time
-          example: "2022-03-12T23:20:50.52Z"
-        productIds:
-          type: array
-          items:
-            type: string
-            description: 'The ID of the Product'
-            minLength: 5
-            maxLength: 99
-            example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+          $ref: '#/components/schemas/ProductId'
+        name:
+          $ref: '#/components/schemas/ProductName'
+        description:
+          $ref: '#/components/schemas/ProductDescription'
+        model:
+          $ref: '#/components/schemas/ProductModel'
+        sku:
+          $ref: '#/components/schemas/ProductSku'
         cost:
-          type: number
-          description: 'The cost of the Order less tax'
-          minimum: 0
-          maximum: 1000
-          format: float
-          example: 948.32
+          $ref: '#/components/schemas/ProductCost'
+        imageUrl:
+          $ref: '#/components/schemas/ProductImageUrl'
+
+    NewProduct:
+      type: object
+      required: [name, description, model, sku, cost, imageUrl]
+      properties:
+        name:
+          $ref: '#/components/schemas/ProductName'
+        description:
+          $ref: '#/components/schemas/ProductDescription'
+        model:
+          $ref: '#/components/schemas/ProductModel'
+        sku:
+          $ref: '#/components/schemas/ProductSkuNew'
+        cost:
+          $ref: '#/components/schemas/ProductCost'
+        imageUrl:
+          $ref: '#/components/schemas/ProductImageUrl'
+
+    ViewOrder:
+      type: object
+      required: [id, status, date, productIds, cost, tax, taxRate, total]
+      properties:
+        id:
+          $ref: '#/components/schemas/OrderId'
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        date:
+          $ref: '#/components/schemas/OrderDate'
+        productIds:
+          $ref: '#/components/schemas/ProductIdArray'
+        cost:
+          $ref: '#/components/schemas/Money0to1000'
         tax:
-          type: number
-          description: 'The sales tax of the Order'
-          minimum: 0
-          maximum: 1000
-          format: float
-          example: 94.83
+          $ref: '#/components/schemas/Money0to1000'
         taxRate:
-          type: number
-          description: 'The rate at which the sales tax is calculated on the Order'
-          minimum: 0
-          maximum: 99
-          format: float
-          example: 10
+          $ref: '#/components/schemas/TaxRatePercent'
         total:
-          type: number
-          description: 'The cost plus the sales tax of the Order'
-          minimum: 0
-          maximum: 1000
-          format: float
-          example: 999.99
+          $ref: '#/components/schemas/Money0to1000'
+
     NewOrder:
       type: object
-      required:
-        - status
-        - date
-        - productIds
-        - cost
-        - tax
-        - taxRate
-        - total
+      required: [status, date, productIds, cost, tax, taxRate, total]
       properties:
         status:
-          type: string
-          description: 'The status of the Order'
-          minLength: 1
-          maxLength: 10
-          example: "OPEN"
-          enum:
-            - OPEN
-            - PAID
-            - SHIPPED
-            - RECEIVED
+          $ref: '#/components/schemas/OrderStatus'
         date:
-          type: string
-          description: 'The date of the Order'
-          format: date-time
-          example: '2022-03-12T23:20:50.52Z'
+          $ref: '#/components/schemas/OrderDate'
         productIds:
-          type: array
-          items:
-            type: string
-            description: 'The product IDs of the Order'
-            minLength: 1
-            maxLength: 1000
-            example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+          $ref: '#/components/schemas/ProductIdArrayNew'
         cost:
-          type: number
-          description: 'The cost of the Order'
-          minimum: 0
-          maximum: 1000
-          format: float
-          example: 948.32
+          $ref: '#/components/schemas/Money0to1000'
         tax:
-          type: number
-          description: 'The sales tax of the Order'
-          minimum: 0
-          maximum: 99
-          format: float
-          example: 94.83
+          $ref: '#/components/schemas/Money0to99'
         taxRate:
-          type: number
-          description: 'The percentage at which the sales tax is calculated.'
-          minimum: 1
-          maximum: 99
-          format: float
-          example: 10
+          $ref: '#/components/schemas/TaxRatePercent'
         total:
-          type: number
-          description: 'The cost plus the sales tax of the Order'
-          minimum: 0
-          maximum: 1000
-          format: float
-          example: 999.99
+          $ref: '#/components/schemas/Money0to1000'
+
+    HttpStatusString:
+      type: string
+      description: HTTP status code as a string.
+      minLength: 1
+      maxLength: 99
+      example: "400"
+    ErrorMessageString:
+      type: string
+      description: Human-readable message describing the error.
+      minLength: 1
+      maxLength: 2000
+      example: "The service did not work as expected."
     Error:
       type: object
-      required:
-        - status
+      required: [status]
       properties:
         status:
-          type: string
-          description: 'HTTP status code as a string.'
-          minLength: 1
-          maxLength: 99
-          example: "400"
+          $ref: '#/components/schemas/HttpStatusString'
         message:
-          type: string
-          description: 'Human-readable message describing the error.'
-          minLength: 1
-          maxLength: 2000
-          example: "The service did not work as expected."
+          $ref: '#/components/schemas/ErrorMessageString'
+
   securitySchemes:
     ApiKey:
       type: apiKey
       in: header
       name: X-Api-Key
+
 security:
   - ApiKey: []
