@@ -1,0 +1,709 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Products & Orders API'
+  description: |
+    ## Overview
+    The **Products & Orders API** lets you manage a simple product catalog and customer orders.
+    It is designed for demos and quick prototyping and follows common REST conventions.
+
+    ### Authentication
+    Authenticate every request with an API key in the `X-Api-Key` header.
+
+    ### Environments
+    Use the **Local Development** and **Postman Mock** servers during development, and the **Staging** server for integration testing. Production endpoints can be added as additional servers when ready.
+
+    ### Errors
+    Errors return a status code and a message in a simple, consistent structure.
+  contact:
+    email: joe@example.com
+    url: https://www.example.com
+servers:
+  - url: 'http://localhost:3000'
+    description: Local Development Server
+  - url: 'https://staging.amazonaws.com/latest'
+    description: Staging Server
+
+tags:
+  - name: Products
+    description: Manage the product catalog (create, list, view, update, delete).
+  - name: Orders
+    description: Work with orders (create, list, view, update, delete).
+paths:
+  /api/products:
+    get:
+      summary: 'List products'
+      description: Returns a list of products.
+      operationId: getProducts
+      tags:
+        - Products
+      responses:
+        '200':
+          description: 'A list of current products'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsList'
+              examples:
+                sample:
+                  summary: Two sample products
+                  value:
+                    - id: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+                      name: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
+                      description: "11 levels of noise cancelling. 20 hours of battery life."
+                      model: "794297-0100"
+                      sku: "394807"
+                      cost: 445
+                      imageUrl: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
+                    - id: "b2805cde-f34f-4945-9fec-3e096fef4bcc"
+                      name: "Mechanical Keyboard — 87 keys"
+                      description: "Hot-swappable switches. White backlight."
+                      model: "MK-87"
+                      sku: "KB-001"
+                      cost: 109.99
+                      imageUrl: "https://example.com/images/keyboard.jpg"
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      summary: 'Create product'
+      description: Creates a new product. Provide all required fields.
+      operationId: createProduct
+      tags:
+        - Products
+      requestBody:
+        description: Product information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProduct'
+            examples:
+              sample:
+                summary: Create a set of headphones
+                value:
+                  name: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
+                  description: "11 levels of noise cancelling. 20 hours of battery life."
+                  model: "794297-0100"
+                  sku: "394807"
+                  cost: 445
+                  imageUrl: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
+      responses:
+        '201':
+          description: 'Product was created successfully'
+          headers:
+            Location:
+              schema:
+                type: string
+              description: The URL of the new product that was just created.
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewProduct'
+              examples:
+                created:
+                  summary: Created product response
+                  value:
+                    id: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+                    name: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
+                    description: "11 levels of noise cancelling. 20 hours of battery life."
+                    model: "794297-0100"
+                    sku: "394807"
+                    cost: 445
+                    imageUrl: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
+          links:
+            GetProductById:
+              operationId: getProductById
+              parameters:
+                productId: '$response.body#/id'
+          x-postman-variables:
+            - type: save
+              name: productId
+              path: .id
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          $ref: '#/components/responses/ConflictError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/products/{productId}:
+    parameters:
+      - in: path
+        name: productId
+        schema:
+          type: string
+        required: true
+        description: Product ID to retrieve
+        x-postman-variables:
+          - type: load
+            name: productId
+    get:
+      summary: 'Get product'
+      description: Retrieves a product by ID.
+      operationId: getProductById
+      tags:
+        - Products
+      responses:
+        '200':
+          description: 'Product retrieved successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewProduct'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      summary: 'Update product'
+      description: Updates an existing product by ID.
+      operationId: updateProductById
+      tags:
+        - Products
+      requestBody:
+        description: Product information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProduct'
+      responses:
+        '200':
+          description: 'Product was updated successfully'
+          headers:
+            Location:
+              schema:
+                type: string
+              description: The URL of the product that was just updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewProduct'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '409':
+          $ref: '#/components/responses/ConflictError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      summary: 'Delete product'
+      description: Deletes a product by ID.
+      operationId: deleteProduct
+      tags:
+        - Products
+      responses:
+        '204':
+          description: 'Product deleted successfully'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/orders:
+    get:
+      summary: 'List orders'
+      description: Returns a list of orders.
+      operationId: getOrders
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: 'A list of current orders'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdersList'
+              examples:
+                sample:
+                  summary: Two orders
+                  value:
+                    - id: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+                      status: "OPEN"
+                      date: "2022-03-12T23:20:50.52Z"
+                      productIds: ["a1805cde-f34f-4945-9fec-3e096fef4bdd"]
+                      cost: 948.32
+                      tax: 94.83
+                      taxRate: 10
+                      total: 999.99
+                    - id: "c3805cde-f34f-4945-9fec-3e096fef4baa"
+                      status: "PAID"
+                      date: "2022-03-14T12:00:00Z"
+                      productIds: ["b2805cde-f34f-4945-9fec-3e096fef4bcc"]
+                      cost: 109.99
+                      tax: 10.99
+                      taxRate: 10
+                      total: 120.98
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      summary: 'Create order'
+      description: Creates a new order.
+      operationId: createOrder
+      tags:
+        - Orders
+      requestBody:
+        description: Order information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrder'
+            examples:
+              sample:
+                value:
+                  status: "OPEN"
+                  date: "2022-03-12T23:20:50.52Z"
+                  productIds: ["a1805cde-f34f-4945-9fec-3e096fef4bdd"]
+                  cost: 948.32
+                  tax: 94.83
+                  taxRate: 10
+                  total: 999.99
+      responses:
+        '201':
+          description: 'Order was created successfully'
+          headers:
+            Location:
+              schema:
+                type: string
+              description: The URL of the new order that was just created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewOrder'
+          links:
+            GetOrderById:
+              operationId: getOrderById
+              parameters:
+                orderId: '$response.body#/id'
+          x-postman-variables:
+            - type: save
+              name: orderId
+              path: .id
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          $ref: '#/components/responses/ConflictError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/orders/{orderId}:
+    parameters:
+      - in: path
+        name: orderId
+        schema:
+          type: string
+        required: true
+        description: Order ID to retrieve
+        x-postman-variables:
+          - type: load
+            name: orderId
+    get:
+      summary: 'Get order'
+      description: Retrieves an order by ID.
+      operationId: getOrderById
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: 'Order retrieved successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewOrder'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      summary: 'Update order'
+      description: Updates an existing order by ID.
+      operationId: updateOrderById
+      tags:
+        - Orders
+      requestBody:
+        description: Order information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrder'
+      responses:
+        '200':
+          description: 'Order was updated successfully'
+          headers:
+            Location:
+              schema:
+                type: string
+              description: The URL of the order that was just updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '409':
+          $ref: '#/components/responses/ConflictError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      summary: 'Delete order'
+      description: Deletes an order by ID.
+      operationId: deleteOrder
+      tags:
+        - Orders
+      responses:
+        '204':
+          description: 'Order deleted successfully'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    BadRequestError:
+      description: The request was invalid or cannot be otherwise served.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            badRequest:
+              value:
+                status: "400"
+                message: "Validation failed for field 'name'"
+    UnauthorizedError:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            unauthorized:
+              value:
+                status: "401"
+                message: "Unauthorized"
+    NotFoundError:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            notFound:
+              value:
+                status: "404"
+                message: "Resource not found"
+    ConflictError:
+      description: The request could not be completed due to a conflict with the current state of the resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            conflict:
+              value:
+                status: "409"
+                message: "Duplicate SKU"
+    ServerError:
+      description: An unexpected error occurred on the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            serverError:
+              value:
+                status: "500"
+                message: "Internal server error"
+  schemas:
+    ProductsList:
+      type: array
+      items:
+        $ref: '#/components/schemas/ViewProduct'
+    ViewProduct:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - model
+        - sku
+        - cost
+        - imageUrl
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: 'The ID of the Product'
+          example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+        name:
+          type: string
+          description: 'The name of the Product'
+          minLength: 5
+          maxLength: 1000
+          example: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
+        description:
+          type: string
+          description: 'The description of the Product'
+          minLength: 5
+          maxLength: 1000
+          example: "11 levels of noise cancelling. 20 hours of battery life."
+        model:
+          type: string
+          description: 'The model number of the Product'
+          minLength: 1
+          maxLength: 99
+          example: "794297-0100"
+        sku:
+          type: string
+          description: 'The SKU of the Product'
+          minLength: 1
+          maxLength: 1000
+          example: "394807"
+        cost:
+          description: 'The cost of the Product'
+          type: number
+          minimum: 0
+          maximum: 1000
+          format: float
+          example: 445
+        imageUrl:
+          type: string
+          description: 'The URL to the image of the Product'
+          minLength: 1
+          maxLength: 1000
+          format: uri
+          example: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
+    NewProduct:
+      type: object
+      required:
+        - name
+        - description
+        - model
+        - sku
+        - cost
+        - imageUrl
+      properties:
+        name:
+          type: string
+          description: 'The name of the Product'
+          minLength: 1
+          maxLength: 1000
+          example: "Bose Noise Cancelling Over-Ear Headphones 700 (Black)"
+        description:
+          type: string
+          description: 'The description of the Product'
+          minLength: 1
+          maxLength: 1000
+          example: "11 levels of noise cancelling. 20 hours of battery life."
+        model:
+          type: string
+          minLength: 1
+          maxLength: 99
+          description: 'The model number of the Product'
+          example: "794297-0100"
+        sku:
+          type: string
+          description: 'The SKU of the Product'
+          minLength: 1
+          maxLength: 99
+          example: "394807"
+        cost:
+          description: 'The cost of the Product'
+          type: number
+          minimum: 0
+          maximum: 1000
+          format: float
+          example: 445
+        imageUrl:
+          description: 'The image URL of the Product'
+          type: string
+          minLength: 1
+          maxLength: 1000
+          format: uri
+          example: "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807.jpg"
+    OrdersList:
+      type: array
+      items:
+        $ref: '#/components/schemas/ViewOrder'
+    ViewOrder:
+      type: object
+      required:
+        - id
+        - status
+        - date
+        - productIds
+        - cost
+        - tax
+        - taxRate
+        - total
+      properties:
+        id:
+          type: string
+          description: 'The ID of the Order'
+          format: uuid
+          example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+        status:
+          type: string
+          description: 'The status of the Order'
+          minLength: 1
+          maxLength: 1000
+          enum:
+            - OPEN
+            - PAID
+            - SHIPPED
+            - RECEIVED
+          example: "OPEN"
+        date:
+          type: string
+          description: 'The date of the Order'
+          format: date-time
+          example: "2022-03-12T23:20:50.52Z"
+        productIds:
+          type: array
+          items:
+            type: string
+            description: 'The ID of the Product'
+            minLength: 5
+            maxLength: 99
+            example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+        cost:
+          type: number
+          description: 'The cost of the Order less tax'
+          minimum: 0
+          maximum: 1000
+          format: float
+          example: 948.32
+        tax:
+          type: number
+          description: 'The sales tax of the Order'
+          minimum: 0
+          maximum: 1000
+          format: float
+          example: 94.83
+        taxRate:
+          type: number
+          description: 'The rate at which the sales tax is calculated on the Order'
+          minimum: 0
+          maximum: 99
+          format: float
+          example: 10
+        total:
+          type: number
+          description: 'The cost plus the sales tax of the Order'
+          minimum: 0
+          maximum: 1000
+          format: float
+          example: 999.99
+    NewOrder:
+      type: object
+      required:
+        - status
+        - date
+        - productIds
+        - cost
+        - tax
+        - taxRate
+        - total
+      properties:
+        status:
+          type: string
+          description: 'The status of the Order'
+          minLength: 1
+          maxLength: 10
+          example: "OPEN"
+          enum:
+            - OPEN
+            - PAID
+            - SHIPPED
+            - RECEIVED
+        date:
+          type: string
+          description: 'The date of the Order'
+          format: date-time
+          example: '2022-03-12T23:20:50.52Z'
+        productIds:
+          type: array
+          items:
+            type: string
+            description: 'The product IDs of the Order'
+            minLength: 1
+            maxLength: 1000
+            example: "a1805cde-f34f-4945-9fec-3e096fef4bdd"
+        cost:
+          type: number
+          description: 'The cost of the Order'
+          minimum: 0
+          maximum: 1000
+          format: float
+          example: 948.32
+        tax:
+          type: number
+          description: 'The sales tax of the Order'
+          minimum: 0
+          maximum: 99
+          format: float
+          example: 94.83
+        taxRate:
+          type: number
+          description: 'The percentage at which the sales tax is calculated.'
+          minimum: 1
+          maximum: 99
+          format: float
+          example: 10
+        total:
+          type: number
+          description: 'The cost plus the sales tax of the Order'
+          minimum: 0
+          maximum: 1000
+          format: float
+          example: 999.99
+    Error:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          description: 'HTTP status code as a string.'
+          minLength: 1
+          maxLength: 99
+          example: "400"
+        message:
+          type: string
+          description: 'Human-readable message describing the error.'
+          minLength: 1
+          maxLength: 2000
+          example: "The service did not work as expected."
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+security:
+  - ApiKey: []
