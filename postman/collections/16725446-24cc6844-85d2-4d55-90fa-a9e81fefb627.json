@@ -41,6 +41,7 @@
 											],
 											"variable": [
 												{
+													"id": "c7b7a2f9-a33c-49d6-ae29-0abdf6ef0c61",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -229,6 +230,7 @@
 											],
 											"variable": [
 												{
+													"id": "b9526f90-d824-468d-bdec-a1c5cee48104",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -454,6 +456,7 @@
 											],
 											"variable": [
 												{
+													"id": "e3fb26a4-2115-40eb-b06c-f6d1aa6dcc7b",
 													"key": "productId",
 													"value": "string",
 													"description": "(Required) product Id to be retrieved"
@@ -941,6 +944,7 @@
 											],
 											"variable": [
 												{
+													"id": "b6ea56f8-8018-45fa-aeef-f26eb68197c6",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
@@ -1129,6 +1133,7 @@
 											],
 											"variable": [
 												{
+													"id": "cdeda34f-6609-43c8-90b7-31c20b6ad4e5",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
@@ -1354,6 +1359,7 @@
 											],
 											"variable": [
 												{
+													"id": "a9c45944-e699-41bc-b3f6-eb30e4a8f4d1",
 													"key": "orderId",
 													"value": "string",
 													"description": "(Required) Order Id to be retrieved"
