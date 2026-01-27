@@ -1,6 +1,6 @@
 # Products API Demo
 
-Demo project showing a typical REST API setup with automated testing through Postman CLI and GitHub Actions.
+Demo project showing a typical REST API setup with automated testing through Postman CLI and GitHub Actions. The CI/CD setup is tied to the "CSM Art of the Possible CI/CD" workspace in the PostFirst API Solutions team.
 
 ## What's in here
 
